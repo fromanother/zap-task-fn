@@ -1,15 +1,11 @@
 import express from "express";
-import path from "path";
-import { fileURLToPath } from "url";
+import { ROOT_PATH } from "./utils/getRootPath.cjs";
+import { usersToJson, usersToCSV } from "./data/tools/csvJsonConvert.js";
 
 const port = 3333;
 const app = express();
 
-const getDirnameInESModule = () => {
-  const __filename = fileURLToPath(import.meta.url);
-  return path.dirname(__filename);
-};
-const PUBLIC_DIR_PATH = getDirnameInESModule() + "/public";
+const PUBLIC_DIR_PATH = ROOT_PATH + "/public";
 
 app.get("/", (req, res) => {
   res.send("Hello from Zaptic! 👋💜");
