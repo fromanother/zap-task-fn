@@ -1,9 +1,11 @@
 import express from "express";
 import { ROOT_PATH } from "./utils/getRootPath.cjs";
-import { usersToJson, usersToCSV } from "./data/tools/csvJsonConvert.js";
+import usersRouter from "./api/users.js";
 
 const port = 3333;
 const app = express();
+
+app.use(express.json());
 
 const PUBLIC_DIR_PATH = ROOT_PATH + "/public";
 
@@ -16,7 +18,9 @@ app.get("/zaptic", function (req, res) {
   res.sendFile(ZAPTIC_LOGO_PATH); // sendFile() automatically adds the appropriate headers for the filetype
 });
 
-// Because it's added at the bottom of the middleware stack, this will execute when no other routes matched,
+app.use("/api/v1/users", usersRouter);
+
+// Because it's added at the bottom of the middleware stack, this will execute when no other routes match,
 // so it's appropriate for handling 404
 app.use((req, res) => {
   res.status(404).send("Seems like you're lost😱. Do you need some help?🕵️");
