@@ -21,7 +21,7 @@ app.get("/zaptic", function (req, res) {
 app.use("/api/v1/users", usersRouter);
 
 // Because it's added at the bottom of the middleware stack, this will execute when no other routes match,
-// so it's appropriate for handling 404
+// so it's appropriate for handling 404s
 app.use((req, res) => {
   res.status(404).send("Seems like you're lost😱. Do you need some help?🕵️");
 });

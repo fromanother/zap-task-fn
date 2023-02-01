@@ -1,5 +1,6 @@
 import { Router } from "express";
 import usersService from "../services/usersService.js";
+import AuthCheck from "../middlewares/authCheck.js";
 
 const usersRouter = Router();
 
@@ -14,7 +15,7 @@ usersRouter.get("/:userId", async (req, res, next) => {
   }
 });
 
-usersRouter.post("/", async (req, res, next) => {
+usersRouter.post("/", AuthCheck, async (req, res, next) => {
   try {
     const user = req.body;
     const createdUser = await usersService.createUser(user);
@@ -25,7 +26,7 @@ usersRouter.post("/", async (req, res, next) => {
 });
 
 // Error handling for this specific router
-usersRouter.use((err, req, res) => {
+usersRouter.use((err, req, res, next) => {
   res.status(err.status).json({ errorMessage: err.message });
 });
 
