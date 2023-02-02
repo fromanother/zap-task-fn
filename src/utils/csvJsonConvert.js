@@ -16,5 +16,5 @@ export const csvToJson = async (filePath) => {
 
 export const jsonToCSV = async (usersJson, filePath) => {
   const csv = await converter.json2csvAsync(usersJson);
-  await writeCSVFile(csv, filePath);
+  return await writeCSVFile(csv, filePath);
 };

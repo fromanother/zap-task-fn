@@ -24,10 +24,10 @@ const validateUser = (user = {}) => {
 const getUser = async (userId) => {
   if (!isNumeric(userId)) throw apiError(400, "User ID must be an integer.");
 
-  const userIDPArsed = parseInt(userId); // assuming user ids are integers
+  const userIDParsed = parseInt(userId); // assuming user ids are integers
 
   const usersJson = await csvToJson(FILE_PATH);
-  const userFound = usersJson.find((user) => user.id === userIDPArsed);
+  const userFound = usersJson.find((user) => user.id === userIDParsed);
 
   if (userFound) {
     return userFound;
@@ -38,10 +38,10 @@ const getUser = async (userId) => {
 
 const createUser = async (user = {}) => {
   if (!validateUser(user)) {
-    throw apiError(400, "Incomplete or unusable user data");
+    throw apiError(400, "Invalid user data");
   } else {
     const usersJson = await csvToJson(FILE_PATH);
-    // find the highest id
+
     let maxUserId = usersJson.reduce(
       (accumulator, user) => (accumulator > user.id ? accumulator : user.id),
       0
